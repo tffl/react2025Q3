@@ -4,6 +4,7 @@ const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/';
 const POSTER_SIZE = 'w185';
 import POSTER_PLACEHOLDER from '../assets/movie_placeholder.png';
+export { POSTER_PLACEHOLDER };
 
 interface MovieCard {
     id: number;

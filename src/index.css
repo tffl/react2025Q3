@@ -44,7 +44,6 @@ h3 {
   margin: 0.5em 0;
 }
 
-
 .basic-text {
   text-align: center;
   font-size: 0.9em;
@@ -79,7 +78,9 @@ h3 {
   font-family: inherit;
   background-color: #893e9d;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
   border-radius: 8px;
   border: none;
 }
@@ -92,7 +93,9 @@ h3 {
   font-weight: 900;
   color: #c0c0c0;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
   border-radius: 8px;
   border: none;
   display: block;

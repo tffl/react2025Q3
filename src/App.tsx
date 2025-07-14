@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import MovieApp from './components/movieApp';
 
 class App extends Component {

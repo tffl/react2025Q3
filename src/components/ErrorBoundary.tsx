@@ -1,11 +1,12 @@
 import { Component, type ReactNode } from 'react';
+
 import absoluteCinema from '../assets/absolute_cinema.jpg';
 
-interface Props {
+type Props = {
     children: ReactNode;
 }
 
-interface State {
+type State = {
     hasError: boolean;
 }
 

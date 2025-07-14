@@ -1,18 +1,20 @@
 import { Component, type ChangeEvent } from 'react';
+
 import type { MoviePoster } from '../api/api';
 import { getAllMovies, getPopularMovies } from '../api/api';
-import SearchBar from './searchBar';
+
 import ErrorMessage from './errorMessage';
 import MoviesList from './moviesList';
+import SearchBar from './searchBar';
 
-interface MovieAppState {
+type MovieAppState = {
     movieResults: MoviePoster[];
     searchRequest: string;
     isLoading: boolean;
     errorMessage: string | null;
 }
 
-export class MovieApp extends Component<{}, MovieAppState> {
+export class MovieApp extends Component<object, MovieAppState> {
     state: MovieAppState = {
         movieResults: [],
         searchRequest: '',
@@ -23,7 +25,7 @@ export class MovieApp extends Component<{}, MovieAppState> {
     componentDidMount() {
         const savedSearch = localStorage.getItem('searchRequest') || '';
         this.setState({ searchRequest: savedSearch }, () => {
-            this.fetchMovies();
+            void this.fetchMovies();
         });
     }
 
@@ -53,14 +55,14 @@ export class MovieApp extends Component<{}, MovieAppState> {
         if (!userInput) return;
 
         localStorage.setItem('searchRequest', userInput);
-        this.fetchMovies();
+        void this.fetchMovies();
     };
 
     updateSearchRequest = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         this.setState({ searchRequest: value }, () => {
             if (!value.trim().length) {
-                this.fetchMovies();
+                void this.fetchMovies();
             }
         });
     };

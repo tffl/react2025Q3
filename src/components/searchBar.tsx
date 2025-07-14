@@ -1,6 +1,6 @@
 import type { ChangeEvent } from 'react';
 
-interface searchBarStates {
+type searchBarStates = {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => void;

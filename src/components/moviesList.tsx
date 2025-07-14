@@ -1,4 +1,5 @@
 import type { MoviePoster } from '../api/api';
+
 import MovieCard from './movieCard';
 
 export default function MoviesList({ movies }: { movies: MoviePoster[] }) {

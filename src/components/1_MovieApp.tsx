@@ -3,9 +3,9 @@ import { Component, type ChangeEvent } from "react";
 import type { MoviePoster } from "../api/api";
 import { getAllMovies, getPopularMovies } from "../api/api";
 
-import ErrorMessage from "./errorMessage";
-import MoviesList from "./moviesList";
-import SearchBar from "./searchBar";
+import ErrorMessage from "./1_ErrorMessage";
+import MoviesList from "./1_MoviesList";
+import SearchBar from "./1_SearchBar";
 
 type MovieAppState = {
   movieResults: MoviePoster[];

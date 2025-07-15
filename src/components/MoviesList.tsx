@@ -1,6 +1,6 @@
 import type { MoviePoster } from "../api/api";
 
-import MovieCard from "./1_MovieCard";
+import MovieCard from "./MovieCard";
 
 export default function MoviesList({ movies }: { movies: MoviePoster[] }) {
   return (

@@ -7,10 +7,10 @@ export default defineConfig({
     include: ["**/*.test.ts", "**/*.test.tsx"],
     globals: true,
     environment: "jsdom",
-    setupFiles: "./src/setupTests.ts",
     coverage: {
       provider: "istanbul",
       reporter: ["text", "html"],
+      reportsDirectory: './coverage',
       include: ['src/**/*.{js,jsx,ts,tsx}'],
       exclude: [
         'src/**/*.test.{js,jsx,ts,tsx}',

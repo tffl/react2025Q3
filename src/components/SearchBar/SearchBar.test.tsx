@@ -19,23 +19,23 @@ const testSetup = ({
 const userRequest = faker.lorem.words(1);
 
 describe("SearchBar", () => {
-  it("renders search input", () => {
+  it("render search input", () => {
     const { input } = testSetup();
     expect(input).toBeTruthy();
   });
 
-  it("renders search button", () => {
+  it("render search button", () => {
     const { button } = testSetup();
     expect(button).toBeTruthy();
   });
 
-  it("calls onChange by typing", async () => {
+  it("call onChange by typing", async () => {
     const { input, onChange } = testSetup();
     await userEvent.type(input, userRequest);
     expect(onChange).toHaveBeenCalled();
   });
 
-  it("calls onSubmit by clicking search button", async () => {
+  it("call onSubmit by clicking search button", async () => {
     const { button, onSubmit } = testSetup({ value: userRequest });
     await userEvent.click(button);
     expect(onSubmit).toHaveBeenCalled();

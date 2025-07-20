@@ -1,6 +1,6 @@
 import { Component, type ReactNode } from "react";
 
-import absoluteCinema from "../assets/absolute_cinema.jpg";
+import absoluteCinema from "../../assets/absolute_cinema.jpg";
 
 type Props = {
   children: ReactNode;

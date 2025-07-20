@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-import MovieApp from "./components/MovieApp";
+import MovieApp from "./components/MovieApp/MovieApp";
 
 class App extends Component {
   state = { shouldThrow: false };

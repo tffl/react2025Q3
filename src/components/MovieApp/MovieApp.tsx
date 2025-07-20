@@ -1,11 +1,11 @@
 import { Component, type ChangeEvent } from "react";
 
-import type { MoviePoster } from "../api/api";
-import { getAllMovies, getPopularMovies } from "../api/api";
+import type { MoviePoster } from "../../api/api";
+import { getAllMovies, getPopularMovies } from "../../api/api";
 
-import ErrorMessage from "./ErrorMessage";
-import MoviesList from "./MoviesList";
-import SearchBar from "./SearchBar";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import MoviesList from "../MoviesList/MoviesList";
+import SearchBar from "../SearchBar/SearchBar";
 
 type MovieAppState = {
   movieResults: MoviePoster[];

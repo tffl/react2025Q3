@@ -1,5 +1,5 @@
-import type { MoviePoster } from "../api/api";
-import { POSTER_PLACEHOLDER } from "../api/api";
+import type { MoviePoster } from "../../api/api";
+import { POSTER_PLACEHOLDER } from "../../api/api";
 
 function MovieCard({ movie }: { movie: MoviePoster }) {
   return (

@@ -1,5 +1,5 @@
-import { Header } from "../../ui-components/Header/Header";
 import RssLogo from "../../assets/rss-logo.svg";
+import { Header } from "../../ui-components/Header/Header";
 import "./PageAbout.css";
 
 export const PageAbout = () => {

@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
 import { PageAbout } from "./pages/PageAbout/PageAbout";
+import { PageDetailView } from "./pages/PageDetailView/PageDetailView";
 import { PageHome } from "./pages/PageHome/PageHome";
 import { PageNotFound } from "./pages/PageNotFound/PageNotFound";
-import { PageDetailView } from "./pages/PageDetailView/PageDetailView";
 
 function App() {
   return (

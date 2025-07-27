@@ -7,24 +7,16 @@ import {
 
 import type { MoviePoster } from "../../api/api";
 import { getAllMovies, getPopularMovies } from "../../api/api";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import MoviesList from "../MoviesList/MoviesList";
 import SearchBar from "../SearchBar/SearchBar";
 
 const MovieApp = () => {
   const [movieResults, setMovieResults] = useState<MoviePoster[]>([]);
-  const [searchRequest, setSearchRequest] = useState<string>("");
+  const [searchRequest, setSearchRequest] = useLocalStorage("searchRequest", "");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadSearch = () => {
-      const savedSearch = localStorage.getItem("searchRequest");
-      setSearchRequest(savedSearch ?? "");
-    };
-
-    loadSearch();
-  }, []);
 
   const fetchMovies = useCallback(async (): Promise<void> => {
     setIsLoading(true);
@@ -52,7 +44,6 @@ const MovieApp = () => {
     const userInput = searchRequest.trim();
     if (!userInput) return;
 
-    localStorage.setItem("searchRequest", userInput);
     setSearchRequest(userInput);
   };
 

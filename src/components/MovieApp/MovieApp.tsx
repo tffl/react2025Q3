@@ -1,4 +1,9 @@
-import { useState, useEffect, type ChangeEvent } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  type ChangeEvent,
+} from "react";
 
 import type { MoviePoster } from "../../api/api";
 import { getAllMovies, getPopularMovies } from "../../api/api";
@@ -21,11 +26,7 @@ const MovieApp = () => {
     loadSearch();
   }, []);
 
-  useEffect(() => {
-    void fetchMovies();
-  }, [searchRequest]);
-
-  const fetchMovies = async (): Promise<void> => {
+  const fetchMovies = useCallback(async (): Promise<void> => {
     setIsLoading(true);
     setErrorMessage(null);
 
@@ -41,7 +42,11 @@ const MovieApp = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [searchRequest]);
+
+  useEffect(() => {
+    void fetchMovies();
+  }, [fetchMovies]);
 
   const searchSubmit = (): void => {
     const userInput = searchRequest.trim();

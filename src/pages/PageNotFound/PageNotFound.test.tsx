@@ -15,7 +15,18 @@ describe("PageNotFound", () => {
     originalLocation = window.location;
 
     delete (window as unknown as { location?: Location }).location;
-    (window as unknown as { location?: Partial<Location> }).location = { href: "" };
+
+    Object.defineProperty(window, "location", {
+      configurable: true,
+      writable: true,
+      value: {
+        ...originalLocation,
+        href: "",
+        assign: (url: string) => {
+          (window.location as Location & { href: string }).href = url;
+        },
+      } as Location & { href: string; assign: (url: string) => void },
+    });
 
     render(
       <MemoryRouter>
@@ -27,7 +38,11 @@ describe("PageNotFound", () => {
   });
 
   afterEach(() => {
-    window.location = originalLocation;
+    Object.defineProperty(window, "location", {
+      configurable: true,
+      writable: true,
+      value: originalLocation,
+    });
   });
 
   test("render header text", () => {

@@ -1,5 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { vi, describe, it, expect, beforeEach } from "vitest";
+
 import useLocalStorage from "./useLocalStorage";
 
 const testKey = "test-key";

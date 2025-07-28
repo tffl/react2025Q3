@@ -1,6 +1,7 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+
 import PagePagination from "./PagePagination";
 
 const user = userEvent.setup();
@@ -44,7 +45,7 @@ describe("PagePagination", () => {
     it("the current page's button is disabled", () => {
         cleanup();
         setup({ currentPage: 1, totalPages: 10, onPageChange });
-        const currentBtn = screen.getByRole("button", { name: "1" }) as HTMLButtonElement;
+        const currentBtn = screen.getByRole<HTMLButtonElement>("button", { name: "1" });
         expect(currentBtn.disabled).toBe(true);
     });
 

@@ -10,13 +10,13 @@ export type Movie = {
 };
 
 const movieCardState = {
-  selectedMovies: [] as Movie[],
+  movies: [] as Movie[],
 };
 
 type SelectedMoviesState = typeof movieCardState;
 
 export const isMovieSelected = (state: SelectedMoviesState, id: number): boolean => {
-  return state.selectedMovies.some(movie => movie.id === id);
+  return state.movies.some(movie => movie.id === id);
 };
 
 const selectedMoviesSlice = createSlice({
@@ -27,13 +27,13 @@ const selectedMoviesSlice = createSlice({
       const { id } = action.payload;
 
       if (isMovieSelected(state, id)) {
-        state.selectedMovies = state.selectedMovies.filter(movie => movie.id !== id);
+        state.movies = state.movies.filter(movie => movie.id !== id);
       } else {
-        state.selectedMovies.push(action.payload);
+        state.movies.push(action.payload);
       }
     },
     clearSelection(state) {
-      state.selectedMovies = [];
+      state.movies = [];
     },
   },
 });

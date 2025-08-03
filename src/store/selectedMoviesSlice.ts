@@ -6,7 +6,6 @@ export type Movie = {
   title: string;
   overview: string;
   posterUrl: string | null;
-  detailsUrl?: string;
 };
 
 const movieCardState = {

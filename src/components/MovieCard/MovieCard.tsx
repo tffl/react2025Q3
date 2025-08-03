@@ -10,9 +10,14 @@ const useAppDispatch = () => useDispatch<AppDispatch>();
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 function MovieCard({ movie }: { movie: MoviePoster }) {
+  const dispatch = useAppDispatch();
   const isSelected = useAppSelector((state) =>
     Boolean(state.selectedMovies.movies.find(m => m.id === movie.id))
   );
+
+  const toggleSelection = () => {
+    dispatch(movieSelectionToggle(movie));
+  };
 
   return (
     <div className={`movie-card ${isSelected ? "selected" : ""}`}>
@@ -28,7 +33,7 @@ function MovieCard({ movie }: { movie: MoviePoster }) {
         <input
           type="checkbox"
           checked={isSelected}
-          onChange={() => useAppDispatch()(movieSelectionToggle(movie))}
+          onChange={toggleSelection}
         />
         Select movie
       </label>

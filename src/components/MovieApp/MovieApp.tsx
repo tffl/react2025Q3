@@ -10,6 +10,7 @@ import { getAllMovies, getPopularMovies } from "../../api/api";
 import type { MoviePoster, MovieApiResponse } from "../../api/api";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { SelectedMoviesFlyout } from "../Flyout/SelectedMoviesFlyout";
 import MoviesList from "../MoviesList/MoviesList";
 import PagePagination from "../PagePagination/PagePagination";
 import SearchBar from "../SearchBar/SearchBar";
@@ -82,6 +83,7 @@ const MovieApp = () => {
         <p className="basic-text">No movies found</p>
       ) : (
         <>
+          <SelectedMoviesFlyout />
           <MoviesList movies={movieResults} />
           <PagePagination
             currentPage={currentPage}

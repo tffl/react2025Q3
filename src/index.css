@@ -70,7 +70,6 @@ h3 {
   box-shadow: none;
 }
 
-.reload-btn,
 .search-btn {
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -84,7 +83,7 @@ h3 {
   border-radius: 8px;
   border: none;
 }
-
+.reload-btn,
 .crash-btn {
   background-color: #2e2e2e;
   font-family: inherit;
@@ -107,7 +106,7 @@ h3 {
 }
 
 .reload-btn {
-  margin: 30px;
+  margin: 30px auto;
 }
 
 .reload-btn:hover,

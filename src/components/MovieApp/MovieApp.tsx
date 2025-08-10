@@ -1,7 +1,12 @@
 import { type ChangeEvent, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
-import { useGetAllMoviesQuery, useGetPopularMoviesQuery } from "../../api/api";
+import {
+  movieApi,
+  useGetAllMoviesQuery,
+  useGetPopularMoviesQuery,
+} from "../../api/api";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { SelectedMoviesFlyout } from "../Flyout/SelectedMoviesFlyout";
@@ -17,6 +22,7 @@ type MoviePoster = {
 };
 
 const MovieApp = () => {
+  const dispatch = useDispatch();
   const [searchRequest, setSearchRequest] = useLocalStorage(
     "searchRequest",
     "",
@@ -31,18 +37,17 @@ const MovieApp = () => {
 
   const searchQuery = useGetAllMoviesQuery(searchQueryParams, {
     skip: !hasSearch,
-  });
-  const popularQuery = useGetPopularMoviesQuery(popularQueryParams, {
-    skip: hasSearch,
+    refetchOnFocus: true,
+    pollingInterval: 5000,
   });
 
-  const {
-    data: data,
-    isLoading,
-    isError,
-    error,
-    refetch,
-  } = hasSearch
+  const popularQuery = useGetPopularMoviesQuery(popularQueryParams, {
+    skip: hasSearch,
+    refetchOnFocus: true,
+    pollingInterval: 5000,
+  });
+
+  const { data, isLoading, isError, error, refetch } = hasSearch
     ? {
         data: searchQuery.data,
         isLoading: searchQuery.isLoading,
@@ -101,6 +106,11 @@ const MovieApp = () => {
     setSearchParams({ page: page.toString() });
   };
 
+  const onRefreshClick = (): void => {
+    dispatch(movieApi.util.invalidateTags(["Movies"]));
+    void refetch();
+  };
+
   return (
     <div className="search-results">
       <SearchBar
@@ -108,6 +118,9 @@ const MovieApp = () => {
         onChange={updateSearchRequest}
         onSubmit={searchSubmit}
       />
+      <button className="reload-btn" onClick={onRefreshClick}>
+        Refresh
+      </button>
       {isLoading ? (
         <p className="basic-text">Loading movies...</p>
       ) : isError ? (

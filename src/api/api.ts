@@ -1,3 +1,7 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+import POSTER_PLACEHOLDER from "../assets/movie_placeholder.png";
+
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY as string;
 
@@ -8,7 +12,6 @@ if (!API_KEY) {
 const POSTER_BASE_URL = "https://image.tmdb.org/t/p/";
 const POSTER_SIZE = "w185";
 
-import POSTER_PLACEHOLDER from "../assets/movie_placeholder.png";
 export { POSTER_PLACEHOLDER };
 
 export type MovieCard = {
@@ -18,9 +21,9 @@ export type MovieCard = {
   poster_path?: string | null;
 };
 
-export type MoviePoster = {
+export type MoviePoster = MovieCard & {
   posterUrl: string | null;
-} & MovieCard;
+};
 
 export type MovieList = {
   results: MovieCard[];
@@ -34,20 +37,12 @@ export type MovieApiResponse = {
   total_pages: number;
 };
 
-async function fetchAPI<T>(url: string): Promise<T> {
-  const response = await fetch(url);
+export type MovieSearchParams = {
+  query: string;
+  page?: number;
+};
 
-  if (!response.ok) {
-    if (response.status >= 400 && response.status < 500) {
-      throw new Error(`Client error (${response.status}): ${response.statusText}`);
-    }
-    throw new Error("Unexpected server response");
-  }
-
-  return response.json() as Promise<T>;
-}
-
-function getPoster(posterPath: string | null | undefined): string {
+function getPoster(posterPath?: string | null): string {
   return posterPath
     ? `${POSTER_BASE_URL}${POSTER_SIZE}${posterPath}`
     : POSTER_PLACEHOLDER;
@@ -60,29 +55,46 @@ function mapMovies(movies: MovieCard[]): MoviePoster[] {
   }));
 }
 
-export async function getAllMovies(query: string, page = 1): Promise<MovieApiResponse> {
-  const url = new URL(`${API_BASE_URL}/search/movie`);
-  url.searchParams.set("query", query);
-  url.searchParams.set("api_key", API_KEY);
-  url.searchParams.set("page", page.toString());
-
-  const data = await fetchAPI<MovieList>(url.toString());
-
+function mapMovieListResponse(response: MovieList): MovieApiResponse {
   return {
-    results: mapMovies(data.results ?? []),
-    total_pages: data.total_pages,
+    results: mapMovies(response.results ?? []),
+    total_pages: response.total_pages,
   };
 }
 
-export async function getPopularMovies(page = 1): Promise<MovieApiResponse> {
-  const url = new URL(`${API_BASE_URL}/movie/popular`);
-  url.searchParams.set("api_key", API_KEY);
-  url.searchParams.set("page", page.toString());
+export const movieApi = createApi({
+  reducerPath: 'movieApi',
+  baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
+  tagTypes: ['Movies'] as const,
+  endpoints: (build) => ({
+    getAllMovies: build.query<MovieApiResponse, MovieSearchParams>({
+      query: ({ query, page = 1 }) => ({
+        url: '/search/movie',
+        params: {
+          query,
+          api_key: API_KEY,
+          page,
+        },
+      }),
+      transformResponse: mapMovieListResponse,
+      providesTags: (_result, _error, arg: MovieSearchParams) => [
+        { type: 'Movies', id: `search-${arg.query}-${arg.page ?? 1}` },
+      ],
+    }),
+    getPopularMovies: build.query<MovieApiResponse, { page?: number }>({
+      query: ({ page = 1 } = {}) => ({
+        url: '/movie/popular',
+        params: {
+          api_key: API_KEY,
+          page,
+        },
+      }),
+      transformResponse: mapMovieListResponse,
+      providesTags: (_result, _error, arg?: { page?: number }) => [
+        { type: 'Movies', id: `popular-${arg?.page ?? 1}` },
+      ],
+    }),
+  }),
+});
 
-  const data = await fetchAPI<MovieList>(url.toString());
-
-  return {
-    results: mapMovies(data.results ?? []),
-    total_pages: data.total_pages,
-  };
-}
+export const { useGetAllMoviesQuery, useGetPopularMoviesQuery } = movieApi;

@@ -1,13 +1,7 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-  type ChangeEvent,
-} from "react";
+import { type ChangeEvent, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { getAllMovies, getPopularMovies } from "../../api/api";
-import type { MoviePoster, MovieApiResponse } from "../../api/api";
+import { useGetAllMoviesQuery, useGetPopularMoviesQuery } from "../../api/api";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { SelectedMoviesFlyout } from "../Flyout/SelectedMoviesFlyout";
@@ -15,58 +9,97 @@ import MoviesList from "../MoviesList/MoviesList";
 import PagePagination from "../PagePagination/PagePagination";
 import SearchBar from "../SearchBar/SearchBar";
 
+type MoviePoster = {
+  id: number;
+  title: string;
+  overview: string;
+  posterUrl: string | null;
+};
+
 const MovieApp = () => {
-  const [movieResults, setMovieResults] = useState<MoviePoster[]>([]);
-  const [searchRequest, setSearchRequest] = useLocalStorage("searchRequest", "");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [searchRequest, setSearchRequest] = useLocalStorage(
+    "searchRequest",
+    "",
+  );
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
-  const [totalPages, setTotalPages] = useState<number>(1);
 
-  const fetchMovies = useCallback(async (): Promise<void> => {
-    setIsLoading(true);
-    setErrorMessage(null);
+  const hasSearch = searchRequest.trim().length > 0;
 
-    try {
-      const searchQuery = searchRequest.trim();
-      const movieResults: MovieApiResponse = searchQuery
-        ? await getAllMovies(searchQuery, currentPage)
-        : await getPopularMovies(currentPage);
+  const searchQueryParams = { query: searchRequest.trim(), page: currentPage };
+  const popularQueryParams = { page: currentPage };
 
-      setMovieResults(movieResults.results);
-      setTotalPages(movieResults.total_pages);
-    } catch (error) {
-      setErrorMessage((error as Error).message);
-    } finally {
-      setIsLoading(false);
+  const searchQuery = useGetAllMoviesQuery(searchQueryParams, {
+    skip: !hasSearch,
+  });
+  const popularQuery = useGetPopularMoviesQuery(popularQueryParams, {
+    skip: hasSearch,
+  });
+
+  const {
+    data: data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = hasSearch
+    ? {
+        data: searchQuery.data,
+        isLoading: searchQuery.isLoading,
+        isError: searchQuery.isError,
+        error: searchQuery.error,
+        refetch: searchQuery.refetch,
+      }
+    : {
+        data: popularQuery.data,
+        isLoading: popularQuery.isLoading,
+        isError: popularQuery.isError,
+        error: popularQuery.error,
+        refetch: popularQuery.refetch,
+      };
+
+  const errorMessage = (() => {
+    if (isError && error) {
+      if ("status" in error) return `Error: ${JSON.stringify(error)}`;
+      if (error instanceof Error) return error.message;
     }
-  }, [searchRequest, currentPage]);
+    return null;
+  })();
 
-  useEffect(() => {
-    void fetchMovies();
-  }, [fetchMovies]);
+  const movieResults: MoviePoster[] = (data?.results ?? []).map((movie) => ({
+    ...movie,
+    posterUrl: movie.posterUrl ?? null,
+  }));
 
-  const searchSubmit = (): void => {
+  const totalPages: number = data?.total_pages ?? 1;
+
+  const searchSubmit = useCallback(() => {
     const userInput = searchRequest.trim();
     if (!userInput) return;
 
     setSearchRequest(userInput);
     setSearchParams({ page: "1" });
+    void refetch();
+  }, [searchRequest, setSearchRequest, setSearchParams, refetch]);
+
+  const updateSearchRequest = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const inputValue = e.target.value;
+      setSearchRequest(inputValue);
+
+      if (!inputValue.trim()) {
+        setSearchParams({ page: "1" });
+        void refetch();
+      }
+    },
+    [setSearchRequest, setSearchParams, refetch],
+  );
+
+  const noMoviesFound = movieResults.length === 0;
+
+  const onPageChange = (page: number): void => {
+    setSearchParams({ page: page.toString() });
   };
-
-  const updateSearchRequest = (e: ChangeEvent<HTMLInputElement>): void => {
-    const inputValue = e.target.value;
-    setSearchRequest(inputValue);
-
-    if (!inputValue.trim()) {
-      setSearchParams({ page: "1" });
-      void fetchMovies();
-    }
-  };
-
-  const noMoviesFound =
-    !isLoading && !errorMessage && movieResults.length === 0;
 
   return (
     <div className="search-results">
@@ -77,8 +110,8 @@ const MovieApp = () => {
       />
       {isLoading ? (
         <p className="basic-text">Loading movies...</p>
-      ) : errorMessage ? (
-        <ErrorMessage message={errorMessage} />
+      ) : isError ? (
+        <ErrorMessage message={errorMessage || "No movies found"} />
       ) : noMoviesFound ? (
         <p className="basic-text">No movies found</p>
       ) : (
@@ -87,7 +120,7 @@ const MovieApp = () => {
           <MoviesList movies={movieResults} />
           <PagePagination
             currentPage={currentPage}
-            onPageChange={(page) => setSearchParams({ page: page.toString() })}
+            onPageChange={onPageChange}
             totalPages={totalPages}
           />
         </>

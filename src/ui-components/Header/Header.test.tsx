@@ -7,45 +7,45 @@ import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
 import { Header } from "./Header";
 
 vi.mock("react-router-dom", async () => {
-    const actual = await vi.importActual("react-router-dom");
-    return {
-        ...actual,
-        useNavigate: vi.fn(),
-    };
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    useNavigate: vi.fn(),
+  };
 });
 
 describe("Header", () => {
-    let mockNavigate: ReturnType<typeof vi.fn>;
-    let mockedUseNavigate: Mock;
+  let mockNavigate: ReturnType<typeof vi.fn>;
+  let mockedUseNavigate: Mock;
 
-    beforeEach(() => {
-        mockNavigate = vi.fn();
-        mockedUseNavigate = vi.mocked(reactRouterDom.useNavigate) as Mock;
-        mockedUseNavigate.mockReturnValue(mockNavigate);
-    });
+  beforeEach(() => {
+    mockNavigate = vi.fn();
+    mockedUseNavigate = vi.mocked(reactRouterDom.useNavigate) as Mock;
+    mockedUseNavigate.mockReturnValue(mockNavigate);
+  });
 
-    function testSetup(initialRoutes: string[] = ["/"]) {
-        render(
-            <MemoryRouter initialEntries={initialRoutes}>
-                <Header />
-            </MemoryRouter>
-        );
-    }
+  function testSetup(initialRoutes: string[] = ["/"]) {
+    render(
+      <MemoryRouter initialEntries={initialRoutes}>
+        <Header />
+      </MemoryRouter>,
+    );
+  }
 
-    it("render navigation links", () => {
-        testSetup();
-        expect(screen.getByText("Home")).toBeTruthy();
-        expect(screen.getByText("About")).toBeTruthy();
-    });
+  it("render navigation links", () => {
+    testSetup();
+    expect(screen.getByText("Home")).toBeTruthy();
+    expect(screen.getByText("About")).toBeTruthy();
+  });
 
-    it("navigate to correct link on click", async () => {
-        testSetup();
-        await userEvent.click(screen.getByText("About"));
-        expect(mockNavigate).toHaveBeenCalledWith("/about");
-    });
+  it("navigate to correct link on click", async () => {
+    testSetup();
+    await userEvent.click(screen.getByText("About"));
+    expect(mockNavigate).toHaveBeenCalledWith("/about");
+  });
 
-    it("add active class to link when route is active", () => {
-        testSetup(["/about"]);
-        expect(screen.getByText("About")).toBeTruthy()
-    });
+  it("add active class to link when route is active", () => {
+    testSetup(["/about"]);
+    expect(screen.getByText("About")).toBeTruthy();
+  });
 });

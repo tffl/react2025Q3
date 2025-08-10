@@ -7,36 +7,36 @@ import ErrorBoundary from "./ErrorBoundary";
 const user = userEvent.setup();
 
 describe("ErrorBoundary ui test", () => {
-    let reloadMock: ReturnType<typeof vi.fn>;
+  let reloadMock: ReturnType<typeof vi.fn>;
 
-    beforeEach(() => {
-        reloadMock = vi.fn();
+  beforeEach(() => {
+    reloadMock = vi.fn();
 
-        Object.defineProperty(window, "location", {
-            configurable: true,
-            value: {
-                ...window.location,
-                reload: reloadMock,
-            },
-        });
+    Object.defineProperty(window, "location", {
+      configurable: true,
+      value: {
+        ...window.location,
+        reload: reloadMock,
+      },
     });
+  });
 
-    it("render ui and reload page on button click", async () => {
-        const Bomb = () => {
-            throw new Error("Test error");
-        };
+  it("render ui and reload page on button click", async () => {
+    const Bomb = () => {
+      throw new Error("Test error");
+    };
 
-        render(
-            <ErrorBoundary>
-                <Bomb />
-            </ErrorBoundary>
-        );
+    render(
+      <ErrorBoundary>
+        <Bomb />
+      </ErrorBoundary>,
+    );
 
-        const button = screen.getByRole("button", { name: /reload page/i });
-        expect(button).toBeTruthy();
+    const button = screen.getByRole("button", { name: /reload page/i });
+    expect(button).toBeTruthy();
 
-        await user.click(button);
+    await user.click(button);
 
-        expect(reloadMock).toHaveBeenCalled();
-    });
+    expect(reloadMock).toHaveBeenCalled();
+  });
 });

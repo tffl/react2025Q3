@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import POSTER_PLACEHOLDER from "../assets/movie_placeholder.png";
 
@@ -63,13 +63,13 @@ function mapMovieListResponse(response: MovieList): MovieApiResponse {
 }
 
 export const movieApi = createApi({
-  reducerPath: 'movieApi',
+  reducerPath: "movieApi",
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
-  tagTypes: ['Movies'] as const,
+  tagTypes: ["Movies"] as const,
   endpoints: (build) => ({
     getAllMovies: build.query<MovieApiResponse, MovieSearchParams>({
       query: ({ query, page = 1 }) => ({
-        url: '/search/movie',
+        url: "/search/movie",
         params: {
           query,
           api_key: API_KEY,
@@ -78,12 +78,12 @@ export const movieApi = createApi({
       }),
       transformResponse: mapMovieListResponse,
       providesTags: (_result, _error, arg: MovieSearchParams) => [
-        { type: 'Movies', id: `search-${arg.query}-${arg.page ?? 1}` },
+        { type: "Movies", id: `search-${arg.query}-${arg.page ?? 1}` },
       ],
     }),
     getPopularMovies: build.query<MovieApiResponse, { page?: number }>({
       query: ({ page = 1 } = {}) => ({
-        url: '/movie/popular',
+        url: "/movie/popular",
         params: {
           api_key: API_KEY,
           page,
@@ -91,7 +91,7 @@ export const movieApi = createApi({
       }),
       transformResponse: mapMovieListResponse,
       providesTags: (_result, _error, arg?: { page?: number }) => [
-        { type: 'Movies', id: `popular-${arg?.page ?? 1}` },
+        { type: "Movies", id: `popular-${arg?.page ?? 1}` },
       ],
     }),
   }),

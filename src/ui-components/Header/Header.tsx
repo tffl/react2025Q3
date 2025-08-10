@@ -27,7 +27,9 @@ export const Header = ({ className = "" }: HeaderProps) => {
           <li key={link} className="header-item">
             <NavLink
               to={link}
-              className={({ isActive }) => (isActive ? "header-item active" : "header-item")}
+              className={({ isActive }) =>
+                isActive ? "header-item active" : "header-item"
+              }
               onClick={(e) => handleLinkClick(e, link)}
             >
               {label}

@@ -9,7 +9,7 @@ describe("PageDetailView", () => {
     render(
       <MemoryRouter>
         <PageDetailView />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     const nav = screen.getByRole("navigation");
     expect(nav).toBeTruthy();

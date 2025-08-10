@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<PageHome />} />
         <Route path="/about" element={<PageAbout />} />
         <Route path="/detailView" element={<PageDetailView />} />
-        <Route path="*" element={<PageNotFound />} /> 
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );

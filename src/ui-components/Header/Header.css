@@ -20,7 +20,9 @@
   color: #7a7a7a;
   font-weight: 600;
   font-size: 1em;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .header-item:hover {

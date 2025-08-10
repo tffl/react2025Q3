@@ -12,7 +12,7 @@ const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 function MovieCard({ movie }: { movie: MoviePoster }) {
   const dispatch = useAppDispatch();
   const isSelected = useAppSelector((state) =>
-    Boolean(state.selectedMovies.movies.find(m => m.id === movie.id))
+    Boolean(state.selectedMovies.movies.find((m) => m.id === movie.id)),
   );
 
   const toggleSelection = () => {

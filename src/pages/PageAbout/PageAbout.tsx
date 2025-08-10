@@ -8,7 +8,8 @@ export const PageAbout = () => {
       <Header />
       <div className="about-container">
         <p>
-          This is a non-commercial project built for educational purposes as a practical task for the RS School React course.
+          This is a non-commercial project built for educational purposes as a
+          practical task for the RS School React course.
         </p>
         <p>
           Developed by{" "}

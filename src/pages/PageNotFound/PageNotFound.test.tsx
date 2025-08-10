@@ -31,7 +31,7 @@ describe("PageNotFound", () => {
     render(
       <MemoryRouter>
         <PageNotFound />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     backBtn = screen.getByRole("button", { name: /back home/i });

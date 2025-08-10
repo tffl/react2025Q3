@@ -5,7 +5,6 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { store } from "../../store/store";
 import { mockMovies } from "../../test-utils/mockMovies";
 
-
 import MovieCard from "./MovieCard";
 
 describe("MovieCard", () => {
@@ -15,7 +14,7 @@ describe("MovieCard", () => {
     render(
       <Provider store={store}>
         <MovieCard movie={movie} />
-      </Provider>
+      </Provider>,
     );
   });
 

@@ -10,15 +10,15 @@ export default defineConfig({
     coverage: {
       provider: "istanbul",
       reporter: ["text", "html"],
-      reportsDirectory: './coverage',
-      include: ['src/**/*.{js,jsx,ts,tsx}'],
+      reportsDirectory: "./coverage",
+      include: ["src/**/*.{js,jsx,ts,tsx}"],
       exclude: [
-        'src/**/*.test.{js,jsx,ts,tsx}',
-        'src/**/*.spec.{js,jsx,ts,tsx}',
-        'src/index.{js,jsx,ts,tsx}',
-        'src/setupTests.{js,ts}',
-        'src/**/*.d.ts'
+        "src/**/*.test.{js,jsx,ts,tsx}",
+        "src/**/*.spec.{js,jsx,ts,tsx}",
+        "src/index.{js,jsx,ts,tsx}",
+        "src/setupTests.{js,ts}",
+        "src/**/*.d.ts",
       ],
     },
-  }
+  },
 });

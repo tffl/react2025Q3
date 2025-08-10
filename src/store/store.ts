@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
-import { movieApi } from '../api/api';
+import { movieApi } from "../api/api";
 
-import selectedMoviesReducer from './selectedMoviesSlice';
+import selectedMoviesReducer from "./selectedMoviesSlice";
 
 export const store = configureStore({
   reducer: {

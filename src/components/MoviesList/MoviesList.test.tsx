@@ -5,7 +5,6 @@ import { describe, it, expect } from "vitest";
 import { store } from "../../store/store";
 import { mockMovies } from "../../test-utils/mockMovies";
 
-
 import MoviesList from "./MoviesList";
 
 describe("MoviesList", () => {
@@ -13,7 +12,7 @@ describe("MoviesList", () => {
     const { container } = render(
       <Provider store={store}>
         <MoviesList movies={mockMovies} />
-      </Provider>
+      </Provider>,
     );
     const cards = container.querySelectorAll(".movie-card");
     expect(cards.length).toBe(mockMovies.length);
@@ -23,7 +22,7 @@ describe("MoviesList", () => {
     const { container } = render(
       <Provider store={store}>
         <MoviesList movies={[]} />
-      </Provider>
+      </Provider>,
     );
     const cards = container.querySelectorAll(".movie-card");
     expect(cards.length).toBe(0);

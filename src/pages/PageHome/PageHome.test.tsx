@@ -10,7 +10,7 @@ const testSetup = () => {
   render(
     <MemoryRouter>
       <PageHome />
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 };
 

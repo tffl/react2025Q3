@@ -8,8 +8,8 @@ export type Movie = {
   posterUrl: string | null;
 };
 
-const movieCardState = {
-  movies: [] as Movie[],
+const movieCardState: { movies: Movie[] } = {
+  movies: [],
 };
 
 type SelectedMoviesState = typeof movieCardState;

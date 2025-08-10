@@ -1,3 +1,5 @@
+import "@testing-library/jest-dom";
+
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 
@@ -9,7 +11,7 @@ describe("ErrorMessage", () => {
 
     render(<ErrorMessage message={testMessage} />);
 
-    expect(screen.getByText(testMessage)).toBeTruthy();
+    expect(screen.getByText(testMessage)).toBeInTheDocument()
     expect(screen.getByText(testMessage).className).toContain("basic-text");
   });
 });

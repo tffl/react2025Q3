@@ -1,3 +1,5 @@
+import "@testing-library/jest-dom";
+
 import { faker } from "@faker-js/faker";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -21,12 +23,12 @@ const userRequest = faker.lorem.words(1);
 describe("SearchBar", () => {
   it("should render search input", () => {
     const { input } = testSetup();
-    expect(input).toBeTruthy();
+    expect(input).toBeInTheDocument();
   });
 
   it("should render search button", () => {
     const { button } = testSetup();
-    expect(button).toBeTruthy();
+    expect(button).toBeInTheDocument();
   });
 
   it("should call onChange by typing", async () => {

@@ -1,3 +1,5 @@
+import "@testing-library/jest-dom";
+
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { describe, it, expect, beforeEach } from "vitest";
@@ -25,10 +27,10 @@ describe("MovieCard", () => {
   });
 
   it("should render movie title", () => {
-    expect(screen.getByText(movie.title)).toBeTruthy();
+    expect(screen.getByText(movie.title)).toBeInTheDocument();
   });
 
   it("should render movie description", () => {
-    expect(screen.getByText(movie.overview)).toBeTruthy();
+    expect(screen.getByText(movie.overview)).toBeInTheDocument();
   });
 });

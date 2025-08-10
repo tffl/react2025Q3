@@ -1,3 +1,5 @@
+import "@testing-library/jest-dom";
+
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as reactRedux from "react-redux";
@@ -51,9 +53,9 @@ describe("SelectedMoviesFlyout", () => {
   it("should render correctly with selected movies and show correct count", () => {
     renderWithMocks(selectedMoviesMock);
 
-    expect(screen.getByText("2 items selected")).toBeTruthy();
-    expect(screen.getByRole("button", { name: /Unselect all/i })).toBeTruthy();
-    expect(screen.getByRole("button", { name: /Download/i })).toBeTruthy();
+    expect(screen.getByText("2 items selected")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Unselect all/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Download/i })).toBeInTheDocument();
   });
 
   it("should call clearSelection on 'Unselect all' button click", async () => {

@@ -32,11 +32,11 @@ describe("PageAbout", () => {
     rssLogo = screen.getByAltText("RS School React Course");
   });
 
-  test("render about page description", () => {
+  test("should render about page description", () => {
     expect(screen.getByText(/This is a non-commercial project/i)).toBeTruthy();
   });
 
-  test("links have correct attributes", () => {
+  test("should render links with correct attributes", () => {
     checkLinkAttributes(githubLink, "https://github.com/tffl");
     checkLinkAttributes(rssLink, "https://rs.school/courses/reactjs");
     expect(rssLogo).toBeTruthy();

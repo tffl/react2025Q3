@@ -5,7 +5,7 @@ import { describe, it, expect } from "vitest";
 import { PageDetailView } from "./PageDetailView";
 
 describe("PageDetailView", () => {
-  it("render Header component", () => {
+  it("should render Header component", () => {
     render(
       <MemoryRouter>
         <PageDetailView />

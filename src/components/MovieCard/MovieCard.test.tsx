@@ -18,17 +18,17 @@ describe("MovieCard", () => {
     );
   });
 
-  it("render correct movie image", () => {
+  it("should render correct movie image", () => {
     const img = screen.getByRole("img", { name: movie.title });
     expect(img.getAttribute("src")).toBe(movie.posterUrl);
     expect(img.getAttribute("alt")).toBe(movie.title);
   });
 
-  it("render movie title", () => {
+  it("should render movie title", () => {
     expect(screen.getByText(movie.title)).toBeTruthy();
   });
 
-  it("render movie description", () => {
+  it("should render movie description", () => {
     expect(screen.getByText(movie.overview)).toBeTruthy();
   });
 });

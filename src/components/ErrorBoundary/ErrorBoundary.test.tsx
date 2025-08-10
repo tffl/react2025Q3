@@ -6,7 +6,7 @@ import ErrorBoundary from "./ErrorBoundary";
 
 const user = userEvent.setup();
 
-describe("ErrorBoundary ui test", () => {
+describe("should render ErrorBoundary", () => {
   let reloadMock: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe("ErrorBoundary ui test", () => {
     });
   });
 
-  it("render ui and reload page on button click", async () => {
+  it("should reload page on button click", async () => {
     const Bomb = () => {
       throw new Error("Test error");
     };

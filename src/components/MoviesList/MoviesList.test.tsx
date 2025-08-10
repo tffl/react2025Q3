@@ -8,7 +8,7 @@ import { mockMovies } from "../../test-utils/mockMovies";
 import MoviesList from "./MoviesList";
 
 describe("MoviesList", () => {
-  it("render movies list", () => {
+  it("should render movies list", () => {
     const { container } = render(
       <Provider store={store}>
         <MoviesList movies={mockMovies} />
@@ -18,7 +18,7 @@ describe("MoviesList", () => {
     expect(cards.length).toBe(mockMovies.length);
   });
 
-  it("not render anything if movies array is empty", () => {
+  it("should not render anything if movies array is empty", () => {
     const { container } = render(
       <Provider store={store}>
         <MoviesList movies={[]} />

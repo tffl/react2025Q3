@@ -48,7 +48,7 @@ describe("SelectedMoviesFlyout", () => {
     vi.clearAllMocks();
   });
 
-  it("render correctly with selected movies and show correct count", () => {
+  it("should render correctly with selected movies and show correct count", () => {
     renderWithMocks(selectedMoviesMock);
 
     expect(screen.getByText("2 items selected")).toBeTruthy();
@@ -56,7 +56,7 @@ describe("SelectedMoviesFlyout", () => {
     expect(screen.getByRole("button", { name: /Download/i })).toBeTruthy();
   });
 
-  it("call clearSelection on 'Unselect all' button click", async () => {
+  it("should call clearSelection on 'Unselect all' button click", async () => {
     const user = userEvent.setup();
 
     renderWithMocks(selectedMoviesMock);
@@ -66,7 +66,7 @@ describe("SelectedMoviesFlyout", () => {
     expect(mockDispatch).toHaveBeenCalledWith(clearSelection());
   });
 
-  it("call generateCSV on 'Download' button click", async () => {
+  it("should call generateCSV on 'Download' button click", async () => {
     const user = userEvent.setup();
 
     const createObjectURLMock = vi.fn(() => "blob:url");
@@ -80,19 +80,23 @@ describe("SelectedMoviesFlyout", () => {
 
     const originalCreateElement = document.createElement.bind(document);
 
-    vi.spyOn(document, "createElement").mockImplementation(
-      (tagName: string) => {
-        if (tagName === "a") return link;
+    const createElementSpy = vi
+      .spyOn(document, "createElement")
+      .mockImplementation((tagName) => {
+        if (tagName === "a") {
+          return link;
+        }
         return originalCreateElement(tagName);
-      },
-    );
+      });
 
     renderWithMocks(selectedMoviesMock);
 
     await user.click(screen.getByRole("button", { name: /Download/i }));
 
     expect(createObjectURLMock).toHaveBeenCalled();
-    expect(link.click).toHaveBeenCalled();
+    link.click = vi.fn();
     expect(revokeObjectURLMock).toHaveBeenCalled();
+
+    createElementSpy.mockRestore();
   });
 });

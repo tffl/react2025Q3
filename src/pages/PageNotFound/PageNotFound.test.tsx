@@ -45,16 +45,16 @@ describe("PageNotFound", () => {
     });
   });
 
-  test("render header text", () => {
+  test("should render header text", () => {
     const heading = screen.getByRole("heading", { name: pageNotFoundText });
     expect(heading).toBeTruthy();
   });
 
-  test("render back home button", () => {
+  test("should render back home button", () => {
     expect(backBtn).toBeTruthy();
   });
 
-  test("back home button redirects to home page", async () => {
+  test("should redirect to home page by back home button", async () => {
     await user.click(backBtn);
     expect(window.location.href).toBe("/");
   });

@@ -37,12 +37,12 @@ describe("PagePagination", () => {
     vi.clearAllMocks();
   });
 
-  it("render 10 buttons", () => {
+  it("should render 10 buttons", () => {
     const buttons = screen.getAllByRole("button");
     expect(buttons.length).toBeLessThanOrEqual(maxPages);
   });
 
-  it("the current page's button is disabled", () => {
+  it("should the current page's button is disabled", () => {
     cleanup();
     setup({ currentPage: 1, totalPages: 10, onPageChange });
     const currentBtn = screen.getByRole<HTMLButtonElement>("button", {
@@ -51,7 +51,7 @@ describe("PagePagination", () => {
     expect(currentBtn.disabled).toBe(true);
   });
 
-  it("when click on button switch onPageChange to correct page number", async () => {
+  it("should switch onPageChange to correct page number when click on button", async () => {
     cleanup();
     setup({ currentPage: 1, totalPages: 10, onPageChange });
     const button = screen.getByRole("button", { name: "2" });

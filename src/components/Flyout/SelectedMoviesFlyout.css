@@ -1,0 +1,32 @@
+.movie-flyout {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2e2e2e;
+  padding: 8px 20px;
+  border-radius: 8px;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.movie-flyout button {
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #893e9d;
+  color: white;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+  border-radius: 8px;
+  border: none;
+}
+
+.movie-flyout button:hover {
+  background-color: #aa56c1;
+}

@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  font-weight: 500;
+}
+
+.select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #888;
+  background-color: transparent;
+  cursor: pointer;
+}

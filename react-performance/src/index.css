@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -70,4 +70,25 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #242424;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #19abb0;
+  border-radius: 8px;
+  border: 3px solid #242424;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #19abb0 #242424;
 }

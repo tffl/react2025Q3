@@ -4,17 +4,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #b5b5b559;
+  background: #3c3c3c59;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .modalContent {
-  background: #393939;
+  background: #292929;
   padding: 18px;
   border-radius: 8px;
-  width: 360px;
+  width: 600px;
   max-height: 80vh;
   overflow: auto;
 }

@@ -1,5 +1,5 @@
-import { type FC } from "react";
-import { MainPage } from "./pages/MainPage.tsx";
+import { type FC } from 'react';
+import { MainPage } from './pages/MainPage.tsx';
 
 const App: FC = () => {
   return <MainPage />;

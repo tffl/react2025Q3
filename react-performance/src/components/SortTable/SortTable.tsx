@@ -20,7 +20,7 @@ const SortFilter: FC<SortTable> = ({ sortBy, dir, onChange, onToggleDir }) => {
 
   return (
     <div className={styles.container}>
-      <label className={styles.label}>Sort by </label>
+      <label className={styles.label}>Sort by</label>
       <select className={styles.select} value={sortBy} onChange={handleChange}>
         <option value="name">Name</option>
         <option value="population">Population</option>

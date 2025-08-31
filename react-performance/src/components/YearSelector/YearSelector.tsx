@@ -14,7 +14,6 @@ const YearSelector: FC<YearSelector> = ({ year, value, onChange }) => {
 
   return (
     <div className={styles.container}>
-      <label className={styles.label}>Year</label>
       <select className={styles.select} value={value} onChange={handleChange}>
         {year.map((y) => (
           <option key={y} value={y}>

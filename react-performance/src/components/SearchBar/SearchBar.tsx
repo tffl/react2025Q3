@@ -1,24 +1,20 @@
-import type { FC } from 'react';
+import { type FC } from 'react';
 import styles from './SearchBar.module.css';
 
-interface SearchBar {
+interface SearchBarProps {
   value: string;
-  onChange: (search: string) => void;
+  onChange: (value: string) => void;
 }
 
-const SearchBar: FC<SearchBar> = ({ value, onChange }) => {
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    onChange(e.target.value);
-  };
-
+const SearchBar: FC<SearchBarProps> = ({ value, onChange }) => {
   return (
     <div className={styles.container}>
       <input
         type="text"
         className={styles.input}
-        placeholder="Search country..."
+        placeholder="Search..."
         value={value}
-        onChange={handleChange}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );

@@ -38,7 +38,7 @@ const ColumnsModal: FC<ColumnsModal> = ({
 
         <div className={styles.footer}>
           <button className={styles.closeButton} onClick={onClose}>
-            Close
+            Done
           </button>
         </div>
       </div>

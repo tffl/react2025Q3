@@ -1,13 +1,8 @@
-import './App.css';
+import { type FC } from "react";
+import { MainPage } from "./pages/MainPage.tsx";
 
-function App() {
-
-  return (
-    <>
-
-      <h1>CO₂ Emissions Data Viewer</h1>
-    </>
-  );
-}
+const App: FC = () => {
+  return <MainPage />;
+};
 
 export default App;
